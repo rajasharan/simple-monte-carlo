@@ -66,7 +66,7 @@
 
         $('#button').click(function() {
             var val = parseInt($('#input').val());
-            if (val > 0 && val < 9999) {
+            if (val > 0 && val <= 9999) {
                 var pi = runSimulation(val);
                 $('#result').text(JSON.stringify({pi, circlePoints, totalPoints}, null, 4));
             } else {
