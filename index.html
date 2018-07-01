@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href=".">
+    <meta charset="UTF-8">
+    <title>Simple Monte Carlo Simulation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+<body>
+
+    <section class="hero is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Simple Monte Carlo Simulation</h1>
+          <h2 class="subtitle">
+              \( \Large{\pi} \) \( \text{ Approximation} \)
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top: 10px;">
+      <div class="container">
+
+        <div class="columns">
+          <div class="column is-narrow">
+            <canvas id="myCanvas" width="400" height="400" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
+          </div>
+
+          <div class="column">
+            <p> \( \huge{\text{"Area of circle"} \over \text{"Area of square"}} = {\frac{\pi.r^2}{(2.r)^2}} = {\frac{\pi}{4}} \) </p> <br>
+            <p> \( \Rightarrow { \huge{\text{"random points inside circle"} \over \text{"total random points"}} \approx {\frac{\pi}{4}} } \) </p> <br>
+            <p> \( \Rightarrow { \huge{\pi} \approx 4 * \left( {\text{"random points inside circle"} \over \text{"total random points"}} \right) } \) </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="field has-addons">
+          <div class="control">
+            <input id="input" class="input" type="number" min="1" max="9999" placeholder="1 - 9999" value="100" style="width: 200px;">
+          </div>
+          <div class="control">
+            <a id="button" class="button is-info">Run Simulation</a>
+            <a id="reset" class="button is-danger">Reset</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <pre id="result" class="notification">
+        </pre>
+      </div>
+    </section>
+
+    <a href="https://github.com/rajasharan/simple-monte-carlo">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub">
+    </a>
+
+    <script src="app.js"></script>
+    <script>
+        reset();
+
+        $('#button').click(function() {
+            var val = parseInt($('#input').val());
+            if (val > 0 && val < 9999) {
+                var pi = runSimulation(val);
+                $('#result').text(JSON.stringify({pi, circlePoints, totalPoints}, null, 4));
+            } else {
+                $('#result').text('ERROR: enter value between 1 - 9999');
+            }
+        });
+
+        $('#reset').click(function() {
+            reset();
+        });
+    </script>
+</body>
+</html>
